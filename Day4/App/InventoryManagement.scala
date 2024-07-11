@@ -1,52 +1,49 @@
-object InventoryManagement {
+object InventoryManagement extends App {
 
-  var itemNames: Array[String] = Array("pen", "notebook", "eraser")
-  var itemQuantities: Array[Int] = Array(20, 15, 30)
+  var item: Array[String] = Array("pen", "notebook", "eraser")
+  var quantities: Array[Int] = Array(20, 15, 30)
 
   def displayInventory(): Unit = {
     println("Current Inventory:")
-    for (i <- itemNames.indices) {
-      println(s"${itemNames(i)}: ${itemQuantities(i)}")
+    for (i <- item.indices) {
+      println(s"${item(i)}: ${quantities(i)}")
     }
     println()
   }
 
   def restockItem(itemName: String, quantity: Int): Unit = {
-    val index = itemNames.indexOf(itemName)
+    val index = item.indexOf(itemName)
     if (index != -1) {
-      itemQuantities(index) += quantity
-      println(s"Restocked $quantity of $itemName. New quantity: ${itemQuantities(index)}")
+      quantities(index) += quantity
+      println(s"Restocked $quantity of $itemName. New quantity: ${quantities(index)}")
     } else {
       println(s"Item '$itemName' does not exist in the inventory.")
     }
   }
 
   def sellItem(itemName: String, quantity: Int): Unit = {
-    val index = itemNames.indexOf(itemName)
+    val index = item.indexOf(itemName)
     if (index != -1) {
-      if (itemQuantities(index) >= quantity) {
-        itemQuantities(index) -= quantity
-        println(s"Sold $quantity of $itemName. Remaining quantity: ${itemQuantities(index)}")
+      if (quantities(index) >= quantity) {
+        quantities(index) -= quantity
+        println(s"Sold $quantity of $itemName. Remaining quantity: ${quantities(index)}")
       } else {
-        println(s"Not enough quantity of '$itemName' to sell. Current quantity: ${itemQuantities(index)}")
+        println(s"Not enough quantity of '$itemName' to sell. Current quantity: ${quantities(index)}")
       }
     } else {
       println(s"Item '$itemName' does not exist in the inventory.")
     }
   }
 
-  def main(args: Array[String]): Unit = {
-    displayInventory()
+  displayInventory()
 
+  restockItem("pen", 10)
+  restockItem("notebook", 5)
 
-    restockItem("pen", 10)
-    restockItem("notebook", 5)
+  displayInventory()
 
-    displayInventory()
+  sellItem("eraser", 10)
+  sellItem("notebook", 20)
 
-    sellItem("eraser", 10)
-    sellItem("notebook", 20)
-
-    displayInventory()
-  }
+  displayInventory()
 }
