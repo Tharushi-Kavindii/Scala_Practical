@@ -51,7 +51,7 @@ object fourth {
         if (account.balance > 0) {
           account.deposit(account.balance * 0.05)
         } else {
-          account.withdraw(account.balance * 0.1)
+          account.balance += account.balance * 0.1
         }
       })
     }
